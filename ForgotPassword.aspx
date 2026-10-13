@@ -35,14 +35,36 @@
                     <asp:Label ID="lblSuccess" runat="server" />
                 </asp:Panel>
 
+                <!-- ================= EMAIL ================= -->
                 <div class="mh-form-group">
                     <label>EMAIL ADDRESS</label>
                     <div class="mh-input-wrap">
                         <asp:TextBox ID="txtEmail" runat="server" TextMode="Email" placeholder="operator@example.com" />
                     </div>
+
+                    <!-- ✅ .NET RequiredFieldValidator -->
+                    <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
+                        ControlToValidate="txtEmail"
+                        ErrorMessage="Email is required."
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ValidationGroup="vgForgot" />
+
+                    <!-- ✅ .NET RegularExpressionValidator -->
+                    <asp:RegularExpressionValidator ID="revEmail" runat="server"
+                        ControlToValidate="txtEmail"
+                        ValidationExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                        ErrorMessage="Enter valid email (example@mail.com)."
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ValidationGroup="vgForgot" />
                 </div>
 
-                <asp:Button ID="btnSendOTP" runat="server" Text="Send Reset Code" CssClass="btn-auth orange" OnClick="btnSendOTP_Click" />
+                <!-- ✅ Button with ValidationGroup -->
+                <asp:Button ID="btnSendOTP" runat="server" Text="Send Reset Code"
+                    CssClass="btn-auth orange"
+                    OnClick="btnSendOTP_Click"
+                    ValidationGroup="vgForgot" />
 
                 <div class="mh-auth-footer">
                     Remember your password? <a href="Login.aspx">Back to Login</a>

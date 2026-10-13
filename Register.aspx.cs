@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.UI;
 
 namespace machinehub
@@ -8,10 +9,18 @@ namespace machinehub
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack && User.Identity.IsAuthenticated)
+                Response.Redirect("Default.aspx");
         }
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
+            // ✅ STEP 1: .NET Validation Controls check
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
             string name = txtFullName.Text.Trim();
             string email = txtEmail.Text.Trim();
             string phone = txtPhone.Text.Trim();
@@ -20,7 +29,7 @@ namespace machinehub
             pnlError.Visible = false;
             pnlSuccess.Visible = false;
 
-            // ========== VALIDATION ==========
+            // ========== ✅ SERVER-SIDE VALIDATION (extra safety) ==========
 
             // Full Name
             if (string.IsNullOrEmpty(name))
@@ -92,13 +101,13 @@ namespace machinehub
                 return;
             }
 
-            // ========== SAVE USER ==========
             if (!Regex.IsMatch(password, @"[A-Z]"))
             {
                 ShowError("Password must contain at least one capital letter.");
                 return;
             }
 
+            // ========== ✅ SAVE USER ==========
             if (!UserStore.Create(email, name, phone, password))
             {
                 ShowError("An account with this email already exists.");
@@ -106,11 +115,13 @@ namespace machinehub
             }
 
             pnlSuccess.Visible = true;
-            lblSuccess.Text = "\u2713 Account created successfully! You can now log in.";
+            lblSuccess.Text = "✓ Account created successfully! You can now log in.";
 
             txtFullName.Text = "";
             txtEmail.Text = "";
             txtPhone.Text = "";
+            txtPassword.Text = "";
+            txtConfirmPassword.Text = "";
         }
 
         private void ShowError(string msg)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Web.UI;
 
 namespace machinehub
@@ -11,13 +12,18 @@ namespace machinehub
 
         protected void btnSendOTP_Click(object sender, EventArgs e)
         {
+            // ✅ .NET Server-side validation check
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
             string email = txtEmail.Text.Trim();
 
             pnlError.Visible = false;
             pnlSuccess.Visible = false;
 
             // ========== VALIDATION ==========
-
             if (string.IsNullOrEmpty(email))
             {
                 ShowError("Please enter your email address.");
@@ -52,10 +58,15 @@ namespace machinehub
             lblError.Text = msg;
         }
 
+        // ✅ Server-side Email validation
         private bool IsValidEmail(string email)
         {
+            if (string.IsNullOrWhiteSpace(email)) return false;
             try
             {
+                var regex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+                if (!regex.IsMatch(email)) return false;
+
                 var addr = new System.Net.Mail.MailAddress(email);
                 return addr.Address == email;
             }

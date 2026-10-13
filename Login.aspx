@@ -25,7 +25,7 @@
                 <h1>Welcome Back</h1>
                 <p class="subtitle">Enter your credentials to access your portal.</p>
 
-                <!-- ERROR MESSAGE -->
+                <!-- ERROR MESSAGE (server-side errors) -->
                 <asp:Panel ID="pnlError" runat="server" Visible="false" CssClass="mh-alert-error">
                     <asp:Label ID="lblError" runat="server" />
                 </asp:Panel>
@@ -35,24 +35,64 @@
                     <asp:Label ID="lblSuccess" runat="server" />
                 </asp:Panel>
 
+                <!-- ================= EMAIL ================= -->
                 <div class="mh-form-group">
                     <label>EMAIL ADDRESS</label>
                     <div class="mh-input-wrap">
                         <asp:TextBox ID="txtEmail" runat="server" TextMode="Email" placeholder="operator@example.com" />
                     </div>
+
+                    <!-- .NET RequiredFieldValidator -->
+                    <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
+                        ControlToValidate="txtEmail"
+                        ErrorMessage="Email is required."
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ValidationGroup="vgLogin" />
+
+                    <!-- .NET RegularExpressionValidator -->
+                    <asp:RegularExpressionValidator ID="revEmail" runat="server"
+                        ControlToValidate="txtEmail"
+                        ValidationExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                        ErrorMessage="Enter valid email (example@mail.com)."
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ValidationGroup="vgLogin" />
                 </div>
 
+                <!-- ================= PASSWORD ================= -->
                 <div class="mh-form-group">
                     <label>
                         <span>PASSWORD</span>
                         <a href="ForgotPassword.aspx" class="forgot">Forgot Password?</a>
                     </label>
                     <div class="mh-input-wrap">
-                        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" placeholder="••••••••" />
+                        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" placeholder="********" />
                     </div>
+
+                    <!--  .NET RequiredFieldValidator -->
+                    <asp:RequiredFieldValidator ID="rfvPassword" runat="server"
+                        ControlToValidate="txtPassword"
+                        ErrorMessage="Password is required."
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ValidationGroup="vgLogin" />
+
+                    <!--  .NET RegularExpressionValidator (Strong password) -->
+                    <asp:RegularExpressionValidator ID="revPassword" runat="server"
+                        ControlToValidate="txtPassword"
+                        ValidationExpression="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$"
+                        ErrorMessage="Password must be 8+ chars with 1 Upper, 1 Lower, 1 Digit, 1 Special."
+                        ForeColor="Red"
+                        Display="Dynamic"
+                        ValidationGroup="vgLogin" />
                 </div>
 
-                <asp:Button ID="btnLogin" runat="server" Text="Login" CssClass="btn-auth orange" OnClick="btnLogin_Click" />
+                <!-- .NET Button with ValidationGroup -->
+                <asp:Button ID="btnLogin" runat="server" Text="Login"
+                    CssClass="btn-auth orange"
+                    OnClick="btnLogin_Click"
+                    ValidationGroup="vgLogin" />
 
                 <div class="mh-auth-footer">
                     Don't have an account? <a href="Register.aspx">Create account</a>

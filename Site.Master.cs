@@ -33,5 +33,11 @@ namespace machinehub
             if (page == "MyBookings.aspx" && current.Equals("BookingDetail.aspx", StringComparison.OrdinalIgnoreCase)) return "active";
             return current.Equals(page, StringComparison.OrdinalIgnoreCase) ? "active" : "";
         }
+
+        //  NEW: Check if user is logged in
+        public bool IsUserLoggedIn()
+        {
+            return Request.IsAuthenticated;
+        }
     }
 }

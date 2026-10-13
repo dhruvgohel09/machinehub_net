@@ -101,6 +101,7 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="BookingDetail.aspx" />
+    <Content Include="BookingForm.aspx" />
     <Content Include="Categories.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -196,6 +197,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="BookingForm.aspx.cs">
+      <DependentUpon>BookingForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BookingForm.aspx.designer.cs">
+      <DependentUpon>BookingForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserStore.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>

@@ -2,7 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <!-- HERO -->
+    <!-- ============================================
+         HERO SECTION
+         ============================================ -->
     <section class="mh-hero">
         <div class="container">
             <div class="mh-hero-left">
@@ -22,12 +24,15 @@
             </div>
 
             <div class="mh-hero-img">
-                <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=1000&q=80" alt="Heavy Machinery Excavator" />
+                <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1000&q=80"
+                     alt="JCB Backhoe Loader on Construction Site" />
             </div>
         </div>
     </section>
 
-    <!-- CATEGORIES -->
+    <!-- ============================================
+         CATEGORIES SECTION
+         ============================================ -->
     <section class="mh-section gray">
         <div class="container">
             <div class="mh-section-head">
@@ -39,34 +44,42 @@
             </div>
 
             <div class="mh-categories">
-                <div class="mh-cat-card large">
-                    <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=800&q=80" alt="Earthmoving" />
+                <!-- Large Card - Earthmoving (Excavator) -->
+                <a href="Categories.aspx?cat=earthmoving" class="mh-cat-card large">
+                    <img src="https://images.unsplash.com/photo-1621929747188-0b4dc28498d2?auto=format&fit=crop&w=800&q=80"
+                         alt="Earthmoving Equipment - Yellow Excavator" />
                     <div class="mh-cat-overlay">
                         <h3>Earthmoving</h3>
                         <p>Excavators, Dozers, Loaders</p>
                     </div>
-                </div>
+                </a>
 
-                <div class="mh-cat-card">
-                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=600&q=80" alt="Aerial Lifts" />
+                <!-- Aerial Lifts (Boom Lift) -->
+                <a href="Categories.aspx?cat=aerial" class="mh-cat-card">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=600&q=80"
+                         alt="Aerial Lifts - Boom Lift and Scissor Lift" />
                     <div class="mh-cat-overlay">
                         <h3>Aerial Lifts</h3>
                         <p>Boom Lifts, Scissor Lifts</p>
                     </div>
-                </div>
+                </a>
 
-                <div class="mh-cat-card">
-                    <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80" alt="Material Handling" />
+                <!-- Material Handling (Forklift) -->
+                <a href="Categories.aspx?cat=material" class="mh-cat-card">
+                    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80"
+                         alt="Material Handling - Forklift in Warehouse" />
                     <div class="mh-cat-overlay">
                         <h3>Material Handling</h3>
                         <p>Forklifts, Telehandlers</p>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- FEATURED -->
+    <!-- ============================================
+         FEATURED EQUIPMENT SECTION
+         ============================================ -->
     <section class="mh-section">
         <div class="container">
             <div class="mh-section-head center">
@@ -77,10 +90,13 @@
             </div>
 
             <div class="mh-machines">
+                <!-- Machine 1 - Excavator -->
                 <div class="mh-machine-card">
                     <span class="mh-badge available">AVAILABLE</span>
                     <div class="mh-card-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=600&q=80" class="mh-machine-img" alt="Excavator" />
+                        <img src="https://images.unsplash.com/photo-1621929747188-0b4dc28498d2?auto=format&fit=crop&w=600&q=80"
+                             class="mh-machine-img"
+                             alt="320 GC Excavator" />
                     </div>
                     <h3>320 GC Excavator</h3>
                     <div class="mh-specs">
@@ -96,10 +112,13 @@
                     </div>
                 </div>
 
+                <!-- Machine 2 - JCB Backhoe -->
                 <div class="mh-machine-card">
                     <span class="mh-badge available">AVAILABLE</span>
                     <div class="mh-card-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1579847188804-ecba0e2ea330?auto=format&fit=crop&w=600&q=80" class="mh-machine-img" alt="Backhoe" />
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=600&q=80"
+                             class="mh-machine-img"
+                             alt="JCB 3CX Backhoe Loader" />
                     </div>
                     <h3>3CX Backhoe Loader</h3>
                     <div class="mh-specs">
@@ -115,10 +134,13 @@
                     </div>
                 </div>
 
+                <!-- Machine 3 - Crane -->
                 <div class="mh-machine-card">
                     <span class="mh-badge in-transit">IN-TRANSIT</span>
                     <div class="mh-card-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80" class="mh-machine-img" alt="Crane" />
+                        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80"
+                             class="mh-machine-img"
+                             alt="RT540E Rough Terrain Crane" />
                     </div>
                     <h3>RT540E Rough Terrain Crane</h3>
                     <div class="mh-specs">
@@ -137,7 +159,9 @@
         </div>
     </section>
 
-    <!-- HOW IT WORKS -->
+    <!-- ============================================
+         HOW IT WORKS SECTION
+         ============================================ -->
     <section class="mh-how">
         <div class="container">
             <div class="mh-how-head">
