@@ -1,0 +1,94 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="machinehub.SiteMaster" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MachineHub - Equipment Rental</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="Content/Site.css" rel="stylesheet" />
+
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <!-- DARK NAVBAR (BLUE) -->
+        <nav class="mh-navbar-dark">
+            <div class="container">
+                <a href="Default.aspx" class="mh-logo-light">Machine<span>Hub</span></a>
+
+                <ul class="mh-menu-light">
+                    <li><a href="Default.aspx" class="<%= Active("Default.aspx") %>">Home</a></li>
+                    <li><a href="Machines.aspx" class="<%= Active("Machines.aspx") %>">Equipment</a></li>
+                    <li><a href="Categories.aspx" class="<%= Active("Categories.aspx") %>">Categories</a></li>
+                    <li><a href="MyBookings.aspx" class="<%= Active("MyBookings.aspx") %>">My Bookings</a></li>
+                    <li><a href="About.aspx" class="<%= Active("About.aspx") %>">About</a></li>
+                    <li><a href="Contact.aspx" class="<%= Active("Contact.aspx") %>">Contact</a></li>
+                </ul>
+
+                <div class="mh-actions-light">
+                    <% if (Request.IsAuthenticated) { %>
+                    <span class="mh-login-link"><%: CurrentUserName %></span>
+                    <a href="Default.aspx?logout=1" class="mh-register-btn">Logout</a>
+                    <% } else { %>
+                    <a href="Login.aspx" class="mh-login-link">Login</a>
+                    <a href="Register.aspx" class="mh-register-btn">Register</a>
+                    <% } %>
+                </div>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+
+        <!-- FOOTER 4 COLUMNS (DARK BLUE) -->
+        <footer class="mh-footer-4col">
+            <div class="container">
+                <div class="mh-footer-4col-grid">
+
+                    <div class="mh-footer-brand-col">
+                        <div class="brand">Machine<span>Hub</span></div>
+                        <p>Industrial Strength Rental Management for modern construction operations.</p>
+                    </div>
+
+                    <div>
+                        <h4>LEGAL</h4>
+                        <ul>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4>COMPANY</h4>
+                        <ul>
+                            <li><a href="About.aspx" class="<%= Active("About.aspx") %>">About Us</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="Contact.aspx" class="<%= Active("Contact.aspx") %>">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4>SUPPORT</h4>
+                        <ul>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Equipment Guide</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="mh-footer-4col-bottom">
+                    © 2026 MachineHub Industrial. All rights reserved.
+                </div>
+            </div>
+        </footer>
+
+    </form>
+</body>
+</html>
