@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Account - MachineHub</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
-<body class="mh-auth-body">
+<body class="mh-auth-body day-bg">
     <form id="form1" runat="server">
 
         <!-- TOP NAVBAR -->
@@ -22,8 +22,8 @@
         <!-- MAIN CONTENT -->
         <main class="mh-auth-main">
             <div class="mh-auth-card">
-                <h1>Create Account</h1>
-                <p class="subtitle">Join MachineHub to manage equipment and active rentals.</p>
+                <div class="mh-auth-card-logo">Machine<span>Hub</span></div>
+                <p class="subtitle">Create your account to start managing equipment.</p>
 
                 <!-- ERROR MESSAGE -->
                 <asp:Panel ID="pnlError" runat="server" Visible="false" CssClass="mh-alert-error">
@@ -39,7 +39,7 @@
                 <div class="mh-form-group">
                     <label>FULL NAME</label>
                     <div class="mh-input-wrap">
-                        <asp:TextBox ID="txtFullName" runat="server" placeholder="Gohel Dhruv" />
+                        <asp:TextBox ID="txtFullName" runat="server" CssClass="icon-user" placeholder="Gohel Dhruv" />
                     </div>
 
                     <!-- ✅ RequiredFieldValidator -->
@@ -64,7 +64,7 @@
                 <div class="mh-form-group">
                     <label>EMAIL ADDRESS</label>
                     <div class="mh-input-wrap">
-                        <asp:TextBox ID="txtEmail" runat="server" TextMode="Email" placeholder="dhruv@example.com" />
+                        <asp:TextBox ID="txtEmail" runat="server" TextMode="Email" placeholder="Dhruv@gmail.com" />
                     </div>
 
                     <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
@@ -87,7 +87,7 @@
                 <div class="mh-form-group">
                     <label>PHONE NUMBER</label>
                     <div class="mh-input-wrap">
-                        <asp:TextBox ID="txtPhone" runat="server" TextMode="Phone" placeholder="9876543210" MaxLength="10" />
+                        <asp:TextBox ID="txtPhone" runat="server" TextMode="Phone" CssClass="icon-phone" placeholder="+91 0000-0000" MaxLength="15" />
                     </div>
 
                     <asp:RequiredFieldValidator ID="rfvPhone" runat="server"
@@ -99,8 +99,8 @@
 
                     <asp:RegularExpressionValidator ID="revPhone" runat="server"
                         ControlToValidate="txtPhone"
-                        ValidationExpression="^[6-9]\d{9}$"
-                        ErrorMessage="Enter valid 10-digit mobile number."
+                        ValidationExpression="^[\+\d\s\-\(\)]{10,15}$"
+                        ErrorMessage="Enter valid phone number."
                         ForeColor="Red"
                         Display="Dynamic"
                         ValidationGroup="vgRegister" />
@@ -110,7 +110,7 @@
                 <div class="mh-form-group">
                     <label>PASSWORD</label>
                     <div class="mh-input-wrap">
-                        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" placeholder="********" />
+                        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" placeholder="••••••••" />
                     </div>
 
                     <asp:RequiredFieldValidator ID="rfvPassword" runat="server"
@@ -122,7 +122,7 @@
 
                     <asp:RegularExpressionValidator ID="revPassword" runat="server"
                         ControlToValidate="txtPassword"
-                        ValidationExpression="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$"
+                        ValidationExpression="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^()_+\-=\[\]{}|;:,.<>/~]).{8,}$"
                         ErrorMessage="Password must be 8+ chars with 1 Upper, 1 Lower, 1 Digit, 1 Special."
                         ForeColor="Red"
                         Display="Dynamic"
@@ -133,7 +133,7 @@
                 <div class="mh-form-group">
                     <label>CONFIRM PASSWORD</label>
                     <div class="mh-input-wrap">
-                        <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" placeholder="********" />
+                        <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" placeholder="••••••••" />
                     </div>
 
                     <asp:RequiredFieldValidator ID="rfvConfirmPassword" runat="server"
@@ -155,12 +155,12 @@
 
                 <!-- ✅ Button with ValidationGroup -->
                 <asp:Button ID="btnRegister" runat="server" Text="Create Account"
-                    CssClass="btn-auth orange"
+                    CssClass="btn-auth navy"
                     OnClick="btnRegister_Click"
                     ValidationGroup="vgRegister" />
 
                 <div class="mh-auth-footer">
-                    Already have an account? <a href="Login.aspx">Log in</a>
+                    Already have an account? <a href="Login.aspx" class="navy-link">Log in</a>
                 </div>
             </div>
         </main>

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - MachineHub</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
 <body class="mh-auth-body">
     <form id="form1" runat="server">
@@ -67,7 +67,7 @@
                         <a href="ForgotPassword.aspx" class="forgot">Forgot Password?</a>
                     </label>
                     <div class="mh-input-wrap">
-                        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" placeholder="********" />
+                        <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" placeholder="••••••••" />
                     </div>
 
                     <!--  .NET RequiredFieldValidator -->
@@ -78,11 +78,12 @@
                         Display="Dynamic"
                         ValidationGroup="vgLogin" />
 
-                    <!--  .NET RegularExpressionValidator (Strong password) -->
+                    <!-- .NET RegularExpressionValidator (disabled on login so any existing password format works) -->
                     <asp:RegularExpressionValidator ID="revPassword" runat="server"
                         ControlToValidate="txtPassword"
-                        ValidationExpression="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$"
-                        ErrorMessage="Password must be 8+ chars with 1 Upper, 1 Lower, 1 Digit, 1 Special."
+                        Enabled="false"
+                        ValidationExpression="^.{1,100}$"
+                        ErrorMessage="Password is required."
                         ForeColor="Red"
                         Display="Dynamic"
                         ValidationGroup="vgLogin" />
@@ -98,6 +99,7 @@
                     Don't have an account? <a href="Register.aspx">Create account</a>
                 </div>
             </div>
+
         </main>
 
         <!-- FOOTER -->
@@ -110,7 +112,8 @@
                     <a href="#">Support</a>
                     <a href="Contact.aspx">Contact Us</a>
                 </div>
-                <div class="copyright">© 2026 MachineHub. All rights reserved.</div>
+
+                <div class="copyright"> 2026 MachineHub. All rights reserved.</div>
             </div>
         </footer>
 

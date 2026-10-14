@@ -9,25 +9,49 @@ namespace machinehub
         {
             if (!IsPostBack)
             {
-                if (Session["UserName"] != null)
+                string email = (User != null && User.Identity.IsAuthenticated) ? User.Identity.Name : (Session["ResetEmail"] as string ?? "dhruv@example.com");
+                if (!string.IsNullOrEmpty(email))
                 {
-                    lblUserDisplayName.Text = Session["UserName"].ToString();
-                    txtFullName.Text = Session["UserName"].ToString();
-                }
-                if (User.Identity.IsAuthenticated && !string.IsNullOrEmpty(User.Identity.Name))
-                {
-                    txtEmail.Text = User.Identity.Name;
+                    txtEmail.Text = email;
+                    string[] u = UserStore.GetUser(email);
+                    if (u != null)
+                    {
+                        lblUserDisplayName.Text = u[1];
+                        txtFullName.Text = u[1];
+                        lblUserPhone.Text = u[2];
+                        txtPhone.Text = u[2];
+                    }
+                    else if (Session["UserName"] != null)
+                    {
+                        lblUserDisplayName.Text = Session["UserName"].ToString();
+                        txtFullName.Text = Session["UserName"].ToString();
+                    }
                 }
             }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtFullName.Text.Trim()))
+            string newName = txtFullName.Text.Trim();
+            string newPhone = txtPhone.Text.Trim();
+            string email = txtEmail.Text.Trim();
+
+            if (!string.IsNullOrEmpty(newName))
             {
-                Session["UserName"] = txtFullName.Text.Trim();
-                lblUserDisplayName.Text = txtFullName.Text.Trim();
+                Session["UserName"] = newName;
+                lblUserDisplayName.Text = newName;
             }
+
+            if (!string.IsNullOrEmpty(newPhone))
+            {
+                lblUserPhone.Text = newPhone;
+            }
+
+            if (!string.IsNullOrEmpty(email))
+            {
+                UserStore.UpdateUser(email, string.IsNullOrEmpty(newName) ? "User" : newName, string.IsNullOrEmpty(newPhone) ? "" : newPhone);
+            }
+
             pnlSuccess.Visible = true;
             lblSuccess.Text = "\u2713 Changes saved successfully!";
         }

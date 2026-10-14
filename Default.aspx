@@ -12,8 +12,8 @@
                 <p>Access a premium fleet of heavy machinery. From excavators to aerial lifts, get the reliable gear you need for your next big project, delivered on time.</p>
 
                 <div class="mh-search">
-                    <input type="text" placeholder="What equipment do you need?" />
-                    <button type="button" class="btn-search-orange">Find Equipment</button>
+                    <input type="text" id="txtHeroSearch" placeholder="What equipment do you need?" onkeydown="if(event.key==='Enter'){event.preventDefault();window.location.href='Machines.aspx?q='+encodeURIComponent(this.value);}" />
+                    <button type="button" class="btn-search-orange" onclick="var q=document.getElementById('txtHeroSearch').value;window.location.href='Machines.aspx'+(q?'?q='+encodeURIComponent(q):'');">Find Equipment</button>
                 </div>
 
                 <div class="mh-trust-hero">
@@ -108,7 +108,7 @@
                             <small>Rental Rate</small>
                             <strong>28,000<small>/Day</small></strong>
                         </div>
-                        <a href="Machines.aspx" class="btn-rent">Rent Now</a>
+                        <a href="SelectDate.aspx?machine=CAT320" class="btn-rent">Rent Now</a>
                     </div>
                 </div>
 
@@ -130,7 +130,7 @@
                             <small>Rental Rate</small>
                             <strong>22,000<small>/Day</small></strong>
                         </div>
-                        <a href="Machines.aspx" class="btn-rent">Rent Now</a>
+                        <a href="SelectDate.aspx?machine=JCB3CX" class="btn-rent">Rent Now</a>
                     </div>
                 </div>
 

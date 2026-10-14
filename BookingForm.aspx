@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Booking Form" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="BookingForm.aspx.cs" Inherits="machinehub.BookingForm" %>
+<%@ Page Title="Booking Form" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="BookingForm.aspx.cs" Inherits="machinehub.BookingForm" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -190,18 +190,18 @@
 
                         <div class="mh-bk-machine">
                             <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=200&q=80"
-                                 alt="JCB 3DX" />
+                                 alt="<%= MachineName %>" />
                             <div>
-                                <strong>JCB 3DX EcoXcellence</strong>
-                                <small>Backhoe Loader</small>
+                                <strong><%= MachineName %></strong>
+                                <small><%= MachineCategory %></small>
                             </div>
                         </div>
 
                         <div class="mh-bk-sum-row">
                             <span>📅 Dates</span>
                             <div>
-                                <strong>Oct 14 - Oct 18, 2026</strong>
-                                <small>5 Days</small>
+                                <strong><%= BookingDates %></strong>
+                                <small><%= BookingDuration %></small>
                             </div>
                         </div>
 
@@ -213,23 +213,23 @@
                         <div class="mh-bk-sum-divider"></div>
 
                         <div class="mh-bk-sum-line">
-                            <span>Rental Fee (5 days)</span>
-                            <strong>25,000</strong>
+                            <span>Rental Fee (<%= BookingDuration %>)</span>
+                            <strong><%= RentalFee %></strong>
                         </div>
                         <div class="mh-bk-sum-line">
                             <span>Delivery &amp; Pickup</span>
-                            <strong>3,500</strong>
+                            <strong><%= DeliveryFee %></strong>
                         </div>
                         <div class="mh-bk-sum-line">
                             <span>Taxes (18% GST)</span>
-                            <strong>5,130</strong>
+                            <strong><%= Taxes %></strong>
                         </div>
 
                         <div class="mh-bk-sum-divider"></div>
 
                         <div class="mh-bk-sum-total">
                             <span>Total</span>
-                            <strong>33,630</strong>
+                            <strong><%= TotalAmount %></strong>
                         </div>
 
                         <asp:Button ID="btnProceed" runat="server"

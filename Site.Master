@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MachineHub - Equipment Rental</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server" />
 </head>
 <body>
@@ -27,11 +27,16 @@
                 </ul>
                 <div class="mh-actions-light">
                     <% if (Request.IsAuthenticated) { %>
-                        <!-- ✅ Logged in — show username + Logout -->
-                        <span class="mh-login-link"><%: CurrentUserName %></span>
-                        <a href="Default.aspx?logout=1" class="mh-register-btn">Logout</a>
+                        <!-- ✅ Logged in — show ONLY circular profile avatar matching reference screenshot -->
+                        <a href="Settings.aspx" class="mh-nav-avatar" title="Account Settings">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="10" r="3"></circle>
+                                <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"></path>
+                            </svg>
+                        </a>
                     <% } else { %>
-                        <!-- ✅ Logged out — show Login + Register -->
+                        <!-- ✅ Logged out — show Login + Register matching Home reference screenshot -->
                         <a href="Login.aspx" class="mh-login-link">Login</a>
                         <a href="Register.aspx" class="mh-register-btn">Register</a>
                     <% } %>
@@ -48,35 +53,48 @@
                 <div class="mh-footer-4col-grid">
                     <div class="mh-footer-brand-col">
                         <div class="brand">Machine<span>Hub</span></div>
-                        <p>Industrial Strength Rental Management for modern construction operations.</p>
+                        <p>Empowering industry through accessible, high-performance equipment solutions.</p>
                     </div>
                     <div>
-                        <h4>LEGAL</h4>
+                        <h4>Quick Links</h4>
                         <ul>
+                            <li><a href="Default.aspx">Home</a></li>
+                            <li><a href="Machines.aspx">Equipment</a></li>
+                            <li><a href="Categories.aspx">Categories</a></li>
+                            <li><a href="About.aspx">About Us</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="Contact.aspx">Contact</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                             <li><a href="#">Terms of Service</a></li>
-                            <li><a href="#">Cookie Policy</a></li>
+                            <li><a href="#">Newsletter Signup</a></li>
                         </ul>
                     </div>
                     <div>
-                        <h4>COMPANY</h4>
-                        <ul>
-                            <li><a href="About.aspx">About Us</a></li>
-                            <li><a href="#">Careers</a></li>
-                            <li><a href="Contact.aspx">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4>SUPPORT</h4>
-                        <ul>
-                            <li><a href="#">Help Center</a></li>
-                            <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Equipment Guide</a></li>
+                        <h4>Contact Us</h4>
+                        <ul class="mh-footer-contact-list">
+                            <li>1234 Industrial Way</li>
+                            <li>Manufacturing City, MC 56789</li>
+                            <li><a href="mailto:support@machinehub.com">support@machinehub.com</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="mh-footer-4col-bottom">
-                    © 2026 MachineHub Industrial. All rights reserved.
+                    <span>© 2026 MachineHub Industrial. All rights reserved.</span>
+                    <div class="mh-footer-icons">
+                        <a href="#" title="Region / Language">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        </a>
+                        <a href="#" title="Mobile App">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                        </a>
+                        <a href="#" title="Share">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </footer>

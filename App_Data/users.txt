@@ -1,2 +1,3 @@
 dhruv@example.com|Dhruv Gohel|56654 65654|RkQ9VvUgoucoxNPvXaAlBA==|AYVED8T0h/nCemzERCnmutlGCJ4ZvKckGgTOyV5AeAI=
 dhruv123@gmail.com|dhruv gohel|2568925645|BM4RRbWIBZoQX2kUlp0rzg==|WSW03fojdaTf+Owov1N+ffL+bBf43LyBAm8fiNUaNhk=
+tester@machinehub.com|Dhruv Tester|+91 9876543210|cvnCx6YDRAIMqDNuk6cgpw==|ueXgX5khb7SCvCbPG/UQtxAD4wcDlOUwjNSbITnOMSQ=

@@ -75,5 +75,45 @@ namespace machinehub
                 File.WriteAllLines(FilePath, lines);
             }
         }
+        public static string[] GetUser(string email)
+        {
+            lock (Lock)
+            {
+                return Load().FirstOrDefault(u => u[0].Equals(email, StringComparison.OrdinalIgnoreCase));
+            }
+        }
+
+        public static void UpdateUser(string email, string name, string phone)
+        {
+            lock (Lock)
+            {
+                var lines = Load().Select(u => u[0].Equals(email, StringComparison.OrdinalIgnoreCase)
+                    ? string.Join("|", u[0], name.Replace("|", ""), phone.Replace("|", ""), u[3], u[4])
+                    : string.Join("|", u)).ToArray();
+                File.WriteAllLines(FilePath, lines);
+            }
+        }
+
+        public static System.Data.DataTable GetUsersDataTable()
+        {
+            var dt = new System.Data.DataTable("Users");
+            dt.Columns.Add("UserId", typeof(int));
+            dt.Columns.Add("Email", typeof(string));
+            dt.Columns.Add("FullName", typeof(string));
+            dt.Columns.Add("Phone", typeof(string));
+            dt.Columns.Add("Role", typeof(string));
+            dt.Columns.Add("Status", typeof(string));
+
+            lock (Lock)
+            {
+                var users = Load();
+                int id = 1;
+                foreach (var u in users)
+                {
+                    dt.Rows.Add(id++, u[0], u[1], u[2], "Customer", "Active");
+                }
+            }
+            return dt;
+        }
     }
 }
