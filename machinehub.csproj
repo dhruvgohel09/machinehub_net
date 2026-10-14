@@ -224,6 +224,7 @@
       <DependentUpon>SelectDate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\AppDataStore.cs" />
+    <Compile Include="Models\DbHelper.cs" />
     <Compile Include="Models\UserStore.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>

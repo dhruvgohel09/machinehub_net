@@ -211,16 +211,15 @@ namespace machinehub
             {
                 if (!string.IsNullOrEmpty(datesStr) && datesStr.Contains(" - "))
                 {
-                    var parts = datesStr.Split(new[] { " - " }, StringSplitOptions.None);
-                    // Append year if missing on start part
+                    var parts    = datesStr.Split(new[] { " - " }, StringSplitOptions.None);
                     string startStr = parts[0].Trim();
                     string endStr   = parts[1].Trim();
-                    if (!startStr.Any(char.IsDigit && (c => c > '4')))
-                    {
-                        // extract year from endStr
-                        var yearMatch = System.Text.RegularExpressions.Regex.Match(endStr, @"\d{4}");
-                        if (yearMatch.Success) startStr += ", " + yearMatch.Value;
-                    }
+
+                    // If startStr lacks a year, append the year from endStr
+                    var yearMatch = System.Text.RegularExpressions.Regex.Match(endStr, @"\d{4}");
+                    if (yearMatch.Success && !startStr.Contains(yearMatch.Value))
+                        startStr += ", " + yearMatch.Value;
+
                     if (DateTime.TryParse(startStr, out DateTime s) &&
                         DateTime.TryParse(endStr,   out DateTime e))
                     {
@@ -232,5 +231,6 @@ namespace machinehub
             }
             catch { /* use defaults */ }
         }
+
     }
 }
