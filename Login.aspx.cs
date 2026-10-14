@@ -15,47 +15,32 @@ namespace machinehub
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            //.NET Server-side validation check
-            if (!Page.IsValid)
-            {
-                return;
-            }
+            // .NET Server-side validation check
+            if (!Page.IsValid) return;
 
-            string email = txtEmail.Text.Trim();
+            string email    = txtEmail.Text.Trim().ToLower();
             string password = txtPassword.Text;
 
-            pnlError.Visible = false;
+            pnlError.Visible   = false;
             pnlSuccess.Visible = false;
 
-            //  Server-side extra safety checks
+            // Server-side extra safety checks
             if (string.IsNullOrEmpty(email))
-            {
-                ShowError("Please enter your email address.");
-                return;
-            }
+            { ShowError("Please enter your email address."); return; }
 
             if (!IsValidEmail(email))
-            {
-                ShowError("Please enter a valid email address.");
-                return;
-            }
+            { ShowError("Please enter a valid email address."); return; }
 
             if (string.IsNullOrEmpty(password))
-            {
-                ShowError("Please enter your password.");
-                return;
-            }
+            { ShowError("Please enter your password."); return; }
 
-            //  Brute force protection (5 tries)
+            // Brute force protection (5 tries)
             int tries = Session["LoginTries"] == null ? 0 : (int)Session["LoginTries"];
             if (tries >= 5)
-            {
-                ShowError("Too many failed attempts. Please close the browser and try again later.");
-                return;
-            }
+            { ShowError("Too many failed attempts. Please close the browser and try again later."); return; }
 
-            //  Database / UserStore validation
-            string name = UserStore.Validate(email, password);
+            // ✅ Validate against MachineHubDB (PBKDF2 hash check)
+            string name = DbHelper.ValidateLogin(email, password);
             if (name == null)
             {
                 Session["LoginTries"] = tries + 1;
@@ -63,10 +48,22 @@ namespace machinehub
                 return;
             }
 
-            //  Login success
+            // ✅ Login success — log session to DB
             Session["LoginTries"] = 0;
-            Session["UserName"] = name;
-            FormsAuthentication.SetAuthCookie(email.ToLower(), false);
+            Session["UserName"]   = name;
+            FormsAuthentication.SetAuthCookie(email, false);
+
+            try
+            {
+                var userRow = DbHelper.GetUserByEmail(email);
+                if (userRow != null)
+                {
+                    int userId = (int)userRow["UserId"];
+                    string sessionId = "SESS-" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                    DbHelper.LogSession(sessionId, userId, email, name, Request.UserHostAddress);
+                }
+            }
+            catch { /* session logging is non-critical */ }
 
             string ret = Request.QueryString["ReturnUrl"];
             if (!string.IsNullOrEmpty(ret) && Url.IsLocal(ret))
@@ -78,10 +75,10 @@ namespace machinehub
         private void ShowError(string msg)
         {
             pnlError.Visible = true;
-            lblError.Text = msg;
+            lblError.Text    = msg;
         }
 
-        //  Server-side Email validation using Regex
+        // Server-side Email validation using Regex
         private bool IsValidEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email)) return false;
@@ -90,7 +87,6 @@ namespace machinehub
                 var regex = new System.Text.RegularExpressions.Regex(
                     @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
                 if (!regex.IsMatch(email)) return false;
-
                 return new System.Net.Mail.MailAddress(email).Address == email;
             }
             catch { return false; }

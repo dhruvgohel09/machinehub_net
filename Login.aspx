@@ -113,7 +113,7 @@
                     <a href="Contact.aspx">Contact Us</a>
                 </div>
 
-                <div class="copyright"> 2026 MachineHub. All rights reserved.</div>
+                <div class="copyright">&copy; 2026 MachineHub. All rights reserved.</div>
             </div>
         </footer>
 

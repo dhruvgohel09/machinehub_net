@@ -3687,6 +3687,14 @@ a {
                 url('https://images.unsplash.com/photo-1541888946425-d0fbb1861593?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
 }
 
+.mh-auth-body form {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+}
+
 .mh-auth-body.day-bg {
     background: linear-gradient(rgba(240, 244, 248, 0.55), rgba(226, 232, 240, 0.65)),
                 url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
@@ -3725,7 +3733,7 @@ a {
 }
 
 .mh-auth-main {
-    flex: 1;
+    flex: 1 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3916,8 +3924,11 @@ a {
 
 .mh-auth-page-footer {
     background: #0B1528;
-    padding: 20px 0;
+    padding: 22px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: auto;
+    width: 100%;
+    flex-shrink: 0;
 }
 
 .mh-auth-page-footer .container {

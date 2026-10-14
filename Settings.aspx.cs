@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Web.UI;
 
 namespace machinehub
@@ -9,22 +10,34 @@ namespace machinehub
         {
             if (!IsPostBack)
             {
-                string email = (User != null && User.Identity.IsAuthenticated) ? User.Identity.Name : (Session["ResetEmail"] as string ?? "dhruv@example.com");
+                // Resolve current user's email
+                string email = (User != null && User.Identity.IsAuthenticated)
+                    ? User.Identity.Name
+                    : (Session["ResetEmail"] as string ?? "dhruv@example.com");
+
                 if (!string.IsNullOrEmpty(email))
                 {
                     txtEmail.Text = email;
-                    string[] u = UserStore.GetUser(email);
+
+                    // ✅ Load profile from MachineHubDB.Users
+                    DataRow u = DbHelper.GetUserByEmail(email);
                     if (u != null)
                     {
-                        lblUserDisplayName.Text = u[1];
-                        txtFullName.Text = u[1];
-                        lblUserPhone.Text = u[2];
-                        txtPhone.Text = u[2];
+                        string fullName = u["FullName"].ToString();
+                        string phone    = u["Phone"].ToString();
+
+                        lblUserDisplayName.Text = fullName;
+                        txtFullName.Text        = fullName;
+                        lblUserPhone.Text       = phone;
+                        txtPhone.Text           = phone;
+
+                        // Keep session in sync
+                        Session["UserName"] = fullName;
                     }
                     else if (Session["UserName"] != null)
                     {
                         lblUserDisplayName.Text = Session["UserName"].ToString();
-                        txtFullName.Text = Session["UserName"].ToString();
+                        txtFullName.Text        = Session["UserName"].ToString();
                     }
                 }
             }
@@ -32,28 +45,30 @@ namespace machinehub
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            string newName = txtFullName.Text.Trim();
+            string newName  = txtFullName.Text.Trim();
             string newPhone = txtPhone.Text.Trim();
-            string email = txtEmail.Text.Trim();
+            string email    = txtEmail.Text.Trim().ToLower();
 
             if (!string.IsNullOrEmpty(newName))
             {
-                Session["UserName"] = newName;
+                Session["UserName"]     = newName;
                 lblUserDisplayName.Text = newName;
             }
 
             if (!string.IsNullOrEmpty(newPhone))
-            {
                 lblUserPhone.Text = newPhone;
-            }
 
+            // ✅ Persist profile update to MachineHubDB
             if (!string.IsNullOrEmpty(email))
             {
-                UserStore.UpdateUser(email, string.IsNullOrEmpty(newName) ? "User" : newName, string.IsNullOrEmpty(newPhone) ? "" : newPhone);
+                DbHelper.UpdateUserProfile(
+                    email,
+                    string.IsNullOrEmpty(newName)  ? "User" : newName,
+                    string.IsNullOrEmpty(newPhone) ? ""     : newPhone);
             }
 
             pnlSuccess.Visible = true;
-            lblSuccess.Text = "\u2713 Changes saved successfully!";
+            lblSuccess.Text    = "\u2713 Changes saved successfully!";
         }
     }
 }
